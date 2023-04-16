@@ -205,11 +205,10 @@ export class SSE {
     data.split(/(\r\n|\r|\n){2}/g).forEach((part: string) => {
       if (part.trim().length === 0) {
         const chunkEvent = this._parseEventChunk(this.chunk.trim());
-        if (chunkEvent === null) {
-          throw new Error("Empty chunk");
+        if (chunkEvent !== null) {
+          this.dispatchEvent(chunkEvent);
+          this.chunk = "";
         }
-        this.dispatchEvent(chunkEvent);
-        this.chunk = "";
       } else {
         this.chunk += part;
       }
@@ -220,12 +219,11 @@ export class SSE {
     this._onStreamProgress(e);
 
     const streamData = this._parseEventChunk(this.chunk);
-    if (streamData === null) {
-      throw new Error("Empty chunk");
+    if (streamData !== null) {
+      // Parse the last chunk.
+      this.dispatchEvent(streamData);
+      this.chunk = "";
     }
-    // Parse the last chunk.
-    this.dispatchEvent(streamData);
-    this.chunk = "";
   }
 
   /**
