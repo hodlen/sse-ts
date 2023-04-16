@@ -1,9 +1,13 @@
 {
-  "name": "sse-ts",
-  "version": "1.0.1",
+  "name": "@hodlen/sse.ts",
+  "version": "0.0.1",
   "description": "A ES6-based flexible Server-Sent Events source; supports GET and POST requests and custom headers to a SSE endpoint",
-  "main": "./lib/sse.ts",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,8 +23,8 @@
     "sse-es6"
   ],
   "publishConfig": {
-     "registry":"https://registry.npmjs.org/"
-   },
+    "registry": "https://registry.npmjs.org/"
+  },
   "author": "Mukesh Agarwal <smartmuki@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
