@@ -64,6 +64,12 @@ export interface SSEOptions {
   method: SSEOptionsMethod;
 
   /**
+   * The query string or a dictionary of key-value pairs to be
+   * appended to the URL.
+   */
+  query?: string | { [key: string]: string };
+
+  /**
    * The JSON stringified payload representing the request body.
    */
   payload?: string;
@@ -85,6 +91,14 @@ export class SSE {
 
     if (!options || !options.method) {
       throw new Error("Method is mandatory in `options`");
+    }
+
+    if (options.query) {
+      const queryString =
+        typeof options.query === "string"
+          ? options.query
+          : new URLSearchParams(options.query).toString();
+      this.url = `${url}?${queryString}`;
     }
   }
 
